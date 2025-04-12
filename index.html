@@ -8,42 +8,87 @@
     body {
         font-family: 'Microsoft YaHei', Arial, sans-serif;
         line-height: 1.6;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
         padding: 20px;
-        background-color: #f5f5f5;
+        background-color: #f0f4f8;
         color: #333;
+        transition: all 0.3s ease;
     }
     .container {
         background-color: white;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    .container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
     }
     h1 {
         text-align: center;
         color: #2c3e50;
         margin-bottom: 30px;
+        font-size: 2.2rem;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    h1::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
+    }
+    h2 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+        font-weight: 500;
     }
     .question {
-        margin-bottom: 25px;
-        padding: 15px;
-        border: 1px solid #e0e0e0;
-        border-radius: 5px;
-        background-color: #f9f9f9;
+        margin-bottom: 30px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid #3498db;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .question:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     .question-title {
         font-weight: bold;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         color: #2c3e50;
+        font-size: 1.1rem;
+        line-height: 1.5;
     }
     .options {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
     }
     .option {
         margin-left: 5px;
+        padding: 8px 10px;
+        border-radius: 6px;
+        transition: background-color 0.2s;
+    }
+    .option:hover {
+        background-color: #f7f9fc;
     }
     .option label {
         cursor: pointer;
@@ -51,37 +96,58 @@
         width: 100%;
     }
     .option input[type="radio"] {
-        margin-right: 8px;
+        margin-right: 10px;
+        transform: scale(1.2);
     }
     .btn {
-        background-color: #3498db;
+        background: linear-gradient(135deg, #3498db, #2980b9);
         color: white;
         border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
+        padding: 12px 25px;
+        border-radius: 50px;
         cursor: pointer;
         font-size: 16px;
+        font-weight: 500;
         display: block;
-        margin: 20px auto;
-        transition: background-color 0.3s;
+        margin: 25px auto;
+        transition: all 0.3s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     .btn:hover {
-        background-color: #2980b9;
+        background: linear-gradient(135deg, #2980b9, #3498db);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+    .btn:active {
+        transform: translateY(0);
+    }
+    .btn-secondary {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+    }
+    .btn-secondary:hover {
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+    }
+    .btn-danger {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+    .btn-danger:hover {
+        background: linear-gradient(135deg, #c0392b, #e74c3c);
     }
     #results {
-        margin-top: 20px;
-        padding: 15px;
-        border: 1px solid #e0e0e0;
-        border-radius: 5px;
-        background-color: #f9f9f9;
+        margin-top: 30px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
         display: none;
     }
     .result-header {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 15px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #e0e0e0;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f0f4f8;
     }
     .correct {
         color: #27ae60;
@@ -90,21 +156,27 @@
         color: #e74c3c;
     }
     .filter-controls {
-        margin: 15px 0;
+        margin: 20px 0;
         text-align: center;
     }
     .filter-btn {
-        background-color: #f0f0f0;
+        background-color: #f7f9fc;
         border: 1px solid #ddd;
-        padding: 5px 10px;
+        padding: 8px 15px;
         margin: 0 5px;
-        border-radius: 3px;
+        border-radius: 20px;
         cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 500;
+    }
+    .filter-btn:hover {
+        background-color: #e6f0ff;
     }
     .filter-btn.active {
         background-color: #3498db;
         color: white;
         border-color: #3498db;
+        box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
     }
     .hidden {
         display: none;
@@ -112,71 +184,337 @@
     .status {
         font-weight: bold;
         margin-left: 10px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+    }
+    .status.correct {
+        background-color: rgba(46, 204, 113, 0.15);
+    }
+    .status.incorrect {
+        background-color: rgba(231, 76, 60, 0.15);
     }
     .progress {
-        margin: 20px 0;
-        height: 10px;
-        background-color: #eee;
-        border-radius: 5px;
+        margin: 25px 0;
+        height: 8px;
+        background-color: #e6eef5;
+        border-radius: 10px;
         overflow: hidden;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     }
     .progress-bar {
         height: 100%;
-        background-color: #3498db;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
         width: 0;
         transition: width 0.5s;
+        border-radius: 10px;
     }
     /* 密码保护和题目数量选择样式 */
-    .password-container, .question-count-container {
+    .password-container, .mode-selection-container, .question-count-container {
         text-align: center;
-        margin: 50px 0;
+        margin: 50px auto;
+        max-width: 500px;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    .password-container::before, .mode-selection-container::before, .question-count-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
     }
     .password-input, .question-count-input {
-        padding: 10px;
+        width: 100%;
+        padding: 15px;
         font-size: 16px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        width: 200px;
-        margin: 10px 0;
+        border: 2px solid #e6eef5;
+        border-radius: 8px;
+        margin: 15px 0;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+    .password-input:focus, .question-count-input:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
     }
     .error-message {
         color: #e74c3c;
-        margin-top: 10px;
+        margin-top: 15px;
         display: none;
+        padding: 10px;
+        background-color: rgba(231, 76, 60, 0.1);
+        border-radius: 6px;
+        font-weight: 500;
     }
     /* 用时显示样式 */
     #timer {
         text-align: center;
         font-size: 18px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         color: #2c3e50;
+        background: #f7f9fc;
+        padding: 10px;
+        border-radius: 30px;
+        font-weight: 500;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    /* 模式选择样式 */
+    .mode-btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 30px 0;
+    }
+    .mode-btn {
+        padding: 15px 30px;
+        font-size: 18px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 180px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .mode-btn i {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+    .mode-btn.exam-mode {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+    }
+    .mode-btn.practice-mode {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+        color: white;
+    }
+    .mode-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+    }
+    .mode-btn:active {
+        transform: translateY(-1px);
+    }
+    /* 答案反馈样式 */
+    .answer-feedback {
+        margin-top: 10px;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: 500;
+        display: none;
+    }
+    .answer-feedback.correct {
+        background-color: rgba(46, 204, 113, 0.15);
+        color: #27ae60;
+        border-left: 4px solid #27ae60;
+    }
+    .answer-feedback.incorrect {
+        background-color: rgba(231, 76, 60, 0.15);
+        color: #e74c3c;
+        border-left: 4px solid #e74c3c;
+    }
+    /* 结果页面样式优化 */
+    .result-summary {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0 30px;
+        padding: 20px;
+        background: #f7f9fc;
+        border-radius: 10px;
+    }
+    .result-item {
+        text-align: center;
+    }
+    .result-item .value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2c3e50;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .result-item .label {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+    }
+    /* 图标 */
+    .icon {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        vertical-align: middle;
+        margin-right: 8px;
+    }
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+        body {
+            padding: 10px;
+        }
+        .container {
+            padding: 15px;
+        }
+        .mode-btn-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        .result-summary {
+            flex-direction: column;
+            gap: 15px;
+        }
+    }
+    /* 高亮当前题目 */
+    .current-question {
+        border-left-color: #f39c12;
+        background-color: #fffcf5;
+    }
+    /* 选项选中后的样式 */
+    .option.selected {
+        background-color: #e6f0ff;
+        border-left: 3px solid #3498db;
+    }
+    /* 动画效果 */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+        animation: fadeIn 0.5s ease forwards;
+    }
+    
+    /* 主题切换按钮 */
+    .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        transition: all 0.3s;
+    }
+    .theme-toggle:hover {
+        transform: scale(1.1);
+    }
+    
+    /* 暗色主题 */
+    body.dark-theme {
+        background-color: #1a1a2e;
+        color: #f0f0f0;
+    }
+    body.dark-theme .container,
+    body.dark-theme .question,
+    body.dark-theme #results,
+    body.dark-theme .password-container,
+    body.dark-theme .mode-selection-container,
+    body.dark-theme .question-count-container {
+        background-color: #16213e;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+    body.dark-theme h1,
+    body.dark-theme h2,
+    body.dark-theme .question-title {
+        color: #f0f0f0;
+    }
+    body.dark-theme .option:hover {
+        background-color: #1f3156;
+    }
+    body.dark-theme .option.selected {
+        background-color: #1f3156;
+    }
+    body.dark-theme .password-input,
+    body.dark-theme .question-count-input {
+        background-color: #242c48;
+        border-color: #2a365c;
+        color: #f0f0f0;
+    }
+    body.dark-theme #timer {
+        background-color: #1f3156;
+        color: #f0f0f0;
+    }
+    body.dark-theme .filter-btn {
+        background-color: #242c48;
+        border-color: #2a365c;
+        color: #f0f0f0;
+    }
+    body.dark-theme .progress {
+        background-color: #242c48;
     }
   </style>
+  <!-- 添加一些图标 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+  <!-- 主题切换按钮 -->
+  <div class="theme-toggle" id="theme-toggle">
+    <i class="fas fa-moon"></i>
+  </div>
+
   <!-- 密码保护层 -->
-  <div id="password-protection" class="password-container">
-      <h2>请输入密码访问考试系统</h2>
-      <input type="password" id="password-input" class="password-input" placeholder="密码">
-      <button id="password-submit" class="btn">提交</button>
-      <div id="error-message" class="error-message">密码错误，请重试！</div>
+  <div id="password-protection" class="password-container fade-in">
+      <h2><i class="fas fa-lock"></i> 请输入密码访问考试系统</h2>
+      <input type="password" id="password-input" class="password-input" placeholder="请输入密码" autofocus>
+      <button id="password-submit" class="btn"><i class="fas fa-sign-in-alt"></i> 提交</button>
+      <div id="error-message" class="error-message"><i class="fas fa-exclamation-circle"></i> 密码错误，请重试！</div>
+  </div>
+
+  <!-- 模式选择层 -->
+  <div id="mode-selection" class="mode-selection-container hidden fade-in">
+      <h2><i class="fas fa-tasks"></i> 请选择学习模式</h2>
+      <p>选择适合您的学习方式</p>
+      <div class="mode-btn-container">
+          <button id="practice-mode-btn" class="mode-btn practice-mode">
+              <i class="fas fa-book"></i>
+              练习模式
+              <small>做题后立即查看答案</small>
+          </button>
+          <button id="exam-mode-btn" class="mode-btn exam-mode">
+              <i class="fas fa-clipboard-check"></i>
+              考试模式
+              <small>提交后统一查看结果</small>
+          </button>
+      </div>
   </div>
 
   <!-- 题目数量选择层 -->
-  <div id="question-count-selection" class="question-count-container hidden">
-      <h2>请选择练习题目的数量</h2>
+  <div id="question-count-selection" class="question-count-container hidden fade-in">
+      <h2><i class="fas fa-list-ol"></i> 请选择题目数量</h2>
       <p>题库总数：235题</p>
-      <input type="number" id="question-count-input" class="question-count-input" min="1" max="200" placeholder="请输入题目数量">
-      <button id="question-count-submit" class="btn">开始练习</button>
-      <div id="count-error-message" class="error-message">请输入有效的题目数量！</div>
+      <input type="number" id="question-count-input" class="question-count-input" min="1" max="235" placeholder="请输入题目数量（1-235）" autofocus>
+      <button id="question-count-submit" class="btn"><i class="fas fa-play"></i> 开始练习</button>
+      <div id="count-error-message" class="error-message"><i class="fas fa-exclamation-circle"></i> 请输入有效的题目数量！</div>
   </div>
 
   <!-- 考试系统内容 -->
-  <div id="exam-content" class="hidden">
+  <div id="exam-content" class="hidden fade-in">
       <div class="container">
           <h1>工业互联网考试系统</h1>
+          
+          <!-- 显示当前模式 -->
+          <div id="current-mode" style="text-align: center; margin-bottom: 15px; font-weight: bold; color: #3498db;"></div>
+          
           <!-- 显示作答用时 -->
-          <div id="timer">已用时: 00:00</div>
+          <div id="timer"><i class="fas fa-clock"></i> 已用时: 00:00</div>
           
           <div class="progress">
               <div class="progress-bar" id="progress-bar"></div>
@@ -186,14 +524,34 @@
               <!-- 题目由 JavaScript 动态生成 -->
           </div>
           
-          <button id="submit-btn" class="btn">提交答案</button>
+          <button id="submit-btn" class="btn"><i class="fas fa-paper-plane"></i> 提交答案</button>
           
           <div id="results">
               <div class="result-header">
-                  <h2>测试结果</h2>
+                  <h2><i class="fas fa-chart-pie"></i> 测试结果</h2>
                   <div>
                       <span id="score">0</span>/<span id="total">0</span>
                       <span>正确率: <span id="accuracy">0%</span></span>
+                  </div>
+              </div>
+              
+              <!-- 结果统计卡片 -->
+              <div class="result-summary">
+                  <div class="result-item">
+                      <span class="value" id="summary-score">0</span>
+                      <span class="label">得分</span>
+                  </div>
+                  <div class="result-item">
+                      <span class="value" id="summary-total">0</span>
+                      <span class="label">总题数</span>
+                  </div>
+                  <div class="result-item">
+                      <span class="value" id="summary-accuracy">0%</span>
+                      <span class="label">正确率</span>
+                  </div>
+                  <div class="result-item">
+                      <span class="value" id="summary-time">00:00</span>
+                      <span class="label">用时</span>
                   </div>
               </div>
               
@@ -201,24 +559,24 @@
               <div id="final-time" style="text-align: center; font-size: 16px; margin-bottom: 15px;"></div>
               
               <div class="filter-controls">
-                  <button class="filter-btn active" data-filter="all">全部题目</button>
-                  <button class="filter-btn" data-filter="incorrect">错题复习</button>
+                  <button class="filter-btn active" data-filter="all"><i class="fas fa-list"></i> 全部题目</button>
+                  <button class="filter-btn" data-filter="incorrect"><i class="fas fa-times"></i> 错题复习</button>
               </div>
               
               <div id="result-details">
                   <!-- 结果详情由 JavaScript 动态生成 -->
               </div>
               
-              <div style="text-align: center; margin-top: 20px;">
-                  <button id="restart-btn" class="btn">重新测试</button>
-                  <button id="reselect-btn" class="btn">重新选择题目数</button>
+              <div style="text-align: center; margin-top: 30px;">
+                  <button id="restart-btn" class="btn btn-secondary"><i class="fas fa-redo"></i> 重新测试</button>
+                  <button id="reselect-btn" class="btn"><i class="fas fa-cog"></i> 重新选择题目数</button>
               </div>
           </div>
       </div>
   </div>
 
   <script>
-      // 原始题库（请自行添加更多题目）
+      // 原始题库数据保持不变
       let originalQuestions = [
               {
       id: 16,
@@ -228,7 +586,7 @@
     },
     {
       id: 17,
-      question: "2017年11月国务院发布的《关于深化“互联网+先进制造业”发展工业互联网的指导意见》明确要构建的三大功能体系是指：",
+      question: "2017年11月国务院发布的《关于深化\"互联网+先进制造业\"发展工业互联网的指导意见》明确要构建的三大功能体系是指：",
       options: ["A. 网络", "B. 平台", "C. 安全", "D. 以上全是"],
       answer: "D"
     },
@@ -300,6 +658,7 @@
       options: ["A. 游戏开发", "B. 医疗保健", "C. 大规模数据存储", "D. 传统企业文件管理"],
       answer: "B"
     },
+    // 添加更多题目
     {
       id: 26,
       question: "边缘计算对于哪种应用场景的实时性要求尤为重要？",
@@ -350,6 +709,7 @@
       ],
       answer: "B"
     },
+    // 添加更多常用题目，确保至少有足够多的题目供选择
     {
       id: 31,
       question: "边缘计算可以在哪个方面提供更好的可扩展性？",
@@ -400,6 +760,7 @@
       ],
       answer: "A"
     },
+    // 继续添加更多题目...
     {
       id: 36,
       question: "边缘计算如何提高物流管理的效率？",
@@ -408,539 +769,6 @@
         "B. 提高仓库存储效率",
         "C. 实时监测货物位置",
         "D. 在云端进行所有物流规划"
-      ],
-      answer: "C"
-    },
-    {
-      id: 37,
-      question: "边缘计算如何提高智能音箱的实时性？",
-      options: [
-        "A. 在云端进行所有音频处理",
-        "B. 提高音频设备的分辨率",
-        "C. 实时监测音频播放状态",
-        "D. 在云端存储所有音频数据"
-      ],
-      answer: "B"
-    },
-    {
-      id: 38,
-      question: "边缘计算如何应用于智能电网？",
-      options: [
-        "A. 提高电力传输线路容量",
-        "B. 实时监测电力消耗",
-        "C. 增加发电站数量",
-        "D. 在云端进行电力负载均衡"
-      ],
-      answer: "B"
-    },
-    {
-      id: 39,
-      question: "边缘计算如何应用于智能交通系统？",
-      options: [
-        "A. 提高交通灯的流量",
-        "B. 实时调整交通灯的时序",
-        "C. 增加交通灯的功率",
-        "D. 在云端进行交通规划"
-      ],
-      answer: "B"
-    },
-    {
-      id: 40,
-      question: "边缘计算如何应用于智能交通系统中发挥作用？",
-      options: [
-        "A. 提高车辆最大速度",
-        "B. 减少实时处理数据的延迟",
-        "C. 增加交通灯数量",
-        "D. 在云端进行车辆轨迹分析"
-      ],
-      answer: "B"
-    },
-    {
-      id: 41,
-      question: "边缘计算如何降低哪种类型的成本？",
-      options: ["A. 能源成本", "B. 云计算成本", "C. 生产成本", "D. 设备成本"],
-      answer: "B"
-    },
-    {
-      id: 42,
-      question: "边缘计算有助于解决物联网设备中的哪个问题？",
-      options: [
-        "A. 网络连接不稳定",
-        "B. 设备价格过低",
-        "C. 数据存储容量不足",
-        "D. 传感器数量不足"
-      ],
-      answer: "A"
-    },
-    {
-      id: 43,
-      question: "边缘计算在哪个领域对于低延迟要求尤为关键？",
-      options: ["A. 电子商务", "B. 人脸识别", "C. 电影制作", "D. 财务服务"],
-      answer: "B"
-    },
-    {
-      id: 44,
-      question: "边缘计算在哪个领域对于提高工业自动化的可靠性尤为关键？",
-      options: ["A. 太空探索", "B. 制造业", "C. 农业", "D. 能源管理"],
-      answer: "B"
-    },
-    {
-      id: 45,
-      question: "边缘计算在哪个领域对于提高工业自动化效率尤为关键？",
-      options: ["A. 农业", "B. 医疗保健", "C. 能源管理", "D. 工业自动化"],
-      answer: "D"
-    },
-    {
-      id: 46,
-      question: "边缘计算在哪个领域对于提高物联网设备的性能尤为关键？",
-      options: ["A. 零售业", "B. 医疗保健", "C. 智能家居", "D. 安防领域"],
-      answer: "D"
-    },
-    {
-      id: 47,
-      question: "边缘计算在哪个领域对于提高视频监控的实时性尤为关键？",
-      options: ["A. 零售业", "B. 医疗保健", "C. 智能家居", "D. 安防领域"],
-      answer: "D"
-    },
-    {
-      id: 48,
-      question: "边缘计算在哪个领域对于提高医疗诊断的实时性尤为关键？",
-      options: ["A. 医疗保健", "B. 在线社交平台", "C. 大规模数据分析", "D. 智能家居"],
-      answer: "A"
-    },
-    {
-      id: 49,
-      question: "边缘计算在哪个领域对于提高音乐产业效果尤为关键？",
-      options: ["A. 在线音乐流媒体", "B. 电子商务", "C. 音乐制作", "D. 在云端进行音频处理"],
-      answer: "C"
-    },
-    {
-      id: 50,
-      question: "边缘计算在哪个领域对于提高在线视频游戏效果尤为关键？",
-      options: [
-        "A. 在线社交平台",
-        "B. 电子商务",
-        "C. 实时在线视频游戏",
-        "D. 在云端进行图形渲染"
-      ],
-      answer: "C"
-    },
-    {
-      id: 51,
-      question: "边缘计算在哪个领域对于物联网的大规模连接至关重要？",
-      options: ["A. 工业自动化", "B. 智能家居", "C. 医疗保健", "D. 农业"],
-      answer: "A"
-    },
-    {
-      id: 52,
-      question: "边缘计算在哪个领域可以提高智能音箱的实时性？",
-      options: ["A. 电子商务", "B. 在线音乐流媒体", "C. 医疗保健", "D. 金融服务"],
-      answer: "C"
-    },
-    {
-      id: 53,
-      question: "边缘计算在哪些方面可以提高工业自动化的效率？",
-      options: [
-        "A. 实时控制工业设备",
-        "B. 提高工人数量",
-        "C. 在云端进行生产计划分析",
-        "D. 通过增加机器数量提高产能"
-      ],
-      answer: "A"
-    },
-    {
-      id: 54,
-      question: "边缘计算在物联网中的作用是什么？",
-      options: [
-        "A. 在远程服务器上处理",
-        "B. 实时分析数据",
-        "C. 在云端存储数据",
-        "D. 在网络边缘执行计算"
-      ],
-      answer: "D"
-    },
-    {
-      id: 55,
-      question: "边缘计算中，“边缘”通常指的是什么？",
-      options: [
-        "A. 云端数据中心",
-        "B. 设备或传感器附近",
-        "C. 电源和网络接口",
-        "D. 无线通信网络"
-      ],
-      answer: "B"
-    },
-    {
-      id: 56,
-      question: "边缘技术在工业互联网中的应用可以提高哪些方面的效率？",
-      options: ["A. 数据处理", "B. 数据传输", "C. 设备控制", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 57,
-      question: "边缘技术在工业互联网中的应用主要是？",
-      options: ["A. 数据存储", "B. 数据处理", "C. 数据传输", "D. 设备控制"],
-      answer: "B"
-    },
-    {
-      id: 58,
-      question: "当电控球阀的电动执行器输入10mA的标准信号时，球阀的开度是？",
-      options: ["A. 90°", "B. 45°", "C. 33.75°", "D. 33°"],
-      answer: "C"
-    },
-    {
-      id: 59,
-      question: "电压型电流互感器量程设置为100V、5A，从模块中读取到的电流数值为2708，实际电流值为多少？",
-      options: ["A. 1.354A", "B. 11.705A", "C. 4.996A", "D. 4.580A"],
-      answer: "C"
-    },
-    {
-      id: 60,
-      question: "工业大数据采集的起源可以追溯到哪个时期？",
-      options: [
-        "A. 工业革命时期",
-        "B. 计算机时代初期",
-        "C. 互联网时代初期",
-        "D. 大数据时代初期"
-      ],
-      answer: "A"
-    },
-    {
-      id: 61,
-      question: "工业大数据采集技术的最早应用可以追溯到哪个行业？",
-      options: [
-        "A. 航空航天行业",
-        "B. 石油化工行业",
-        "C. 钢铁制造业",
-        "D. 汽车制造业"
-      ],
-      answer: "D"
-    },
-    {
-      id: 62,
-      question: "工业大数据采集在哪个历史时期得到了快速发展？",
-      options: [
-        "A. 21世纪初的大数据时代初期",
-        "B. 20世纪中期的计算机时代初期",
-        "C. 20世纪初的福特流水线生产方式时期",
-        "D. 19世纪末的电气化革命时期"
-      ],
-      answer: "A"
-    },
-    {
-      id: 63,
-      question: "工业互联网边缘计算的定义是什么？",
-      options: [
-        "A. 在网络边缘执行计算任务的技术",
-        "B. 实时分析工业数据的技术",
-        "C. 所有以上",
-        "D. 以上都不是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 64,
-      question: "工业互联网边缘计算的主要优势是什么？",
-      options: [
-        "A. 提高数据处理速度",
-        "B. 降低网络延迟",
-        "C. 减少能源消耗",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 65,
-      question: "工业互联网边缘计算可以支持哪些类型的应用程序？",
-      options: ["A. 实时应用", "B. 批处理应用", "C. 分布式应用", "D. 所有类型的应用"],
-      answer: "D"
-    },
-    {
-      id: 66,
-      question: "工业互联网边缘计算如何提高产品质量？",
-      options: [
-        "A. 实时监测生产过程",
-        "B. 分析生产数据",
-        "C. 优化生产参数",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 67,
-      question: "工业互联网边缘计算如何提高设备维护效率？",
-      options: [
-        "A. 实时监测设备状态",
-        "B. 分析历史数据",
-        "C. 提供远程诊断和维修支持",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 68,
-      question: "工业互联网边缘计算如何提高生产过程的可靠性？",
-      options: [
-        "A. 实时监控设备状态",
-        "B. 分析历史数据",
-        "C. 优化生产计划",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 69,
-      question: "工业互联网边缘计算如何实现故障预测？",
-      options: [
-        "A. 实时监控设备状态",
-        "B. 分析历史数据",
-        "C. 基于机器学习预测故障",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 70,
-      question: "工业互联网边缘计算如何实现节能降耗？",
-      options: [
-        "A. 实时监控能源消耗",
-        "B. 优化生产过程能耗",
-        "C. 提高设备运行效率",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 71,
-      question: "工业互联网边缘计算如何支持人才培训？",
-      options: [
-        "A. 实时监控培训过程",
-        "B. 分析培训数据",
-        "C. 优化教学资源分配",
-        "D. 以上都是"
-      ],
-      answer: "B"
-    },
-    {
-      id: 72,
-      question: "工业互联网的核心技术是什么？",
-      options: ["A. 物联网", "B. 大数据", "C. 云计算", "D. 人工智能"],
-      answer: "A"
-    },
-    {
-      id: 73,
-      question: "工业互联网的快速发展主要得益于哪些技术的进步？",
-      options: ["A. 物联网技术", "B. 云计算技术", "C. 大数据技术", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 74,
-      question: "工业互联网的数据采集主要分为哪几类？",
-      options: ["A. 感知层数据采集", "B. 平台层数据采集", "C. 应用层数据采集", "D. 全部都是"],
-      answer: "D"
-    },
-    {
-      id: 75,
-      question: "工业互联网的数据采集主要依靠什么实现？",
-      options: ["A. 人工巡检", "B. 传感器", "C. 视频监控", "D. 以上都是"],
-      answer: "B"
-    },
-    {
-      id: 76,
-      question: "工业互联网的数据处理主要包括哪些方面？",
-      options: ["A. 数据清洗", "B. 数据存储", "C. 数据分析", "D. 数据可视化"],
-      answer: "C"
-    },
-    {
-      id: 77,
-      question: "工业互联网的网络架构分为哪两个层次？",
-      options: [
-        "A. 网络互联、数据互通",
-        "B. 工业互联、数据互通",
-        "C. 数据互通、平台互通",
-        "D. 数据安全、数据互通"
-      ],
-      answer: "A"
-    },
-    {
-      id: 78,
-      question: "工业互联网的应用领域主要包括哪些？",
-      options: ["A. 智能制造", "B. 智慧能源", "C. 智慧交通", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 79,
-      question: "工业互联网平台的安全保障主要包括哪些方面？",
-      options: ["A. 数据安全", "B. 设备安全", "C. 应用安全", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 80,
-      question: "工业互联网平台的核心技术不包括哪项？",
-      options: ["A. 物联网技术", "B. 云计算技术", "C. 大数据技术", "D. 人工智能技术"],
-      answer: "A"
-    },
-    {
-      id: 81,
-      question: "工业互联网平台的作用不包括？",
-      options: ["A. 数据采集", "B. 数据处理", "C. 应用开发", "D. 设备维护"],
-      answer: "A"
-    },
-    {
-      id: 82,
-      question: "工业现场数据采集在环保方面的应用有哪些？",
-      options: ["A. 污染源监测", "B. 能源消耗监测", "C. 排放物监测", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 83,
-      question: "可编程控制器（PLC）基本结构包括哪些模块？",
-      options: ["A. CPU", "B. 存储器", "C. 输入/输出模块", "D. 以上全是"],
-      answer: "D"
-    },
-    {
-      id: 84,
-      question: "什么是边缘计算的主要目标？",
-      options: [
-        "A. 提高云计算性能",
-        "B. 减少网络带宽使用",
-        "C. 提高计算性能",
-        "D. 将计算资源推向用户端"
-      ],
-      answer: "B"
-    },
-    {
-      id: 85,
-      question: "没有控制单元的设备，控制器接口不开放的设备，不具备扩展功能的旧设备一般采用什么采集方式？",
-      options: ["A. 工业网关采集", "B. IO采集", "C. 系统对接采集", "D. 人工采集"],
-      answer: "B"
-    },
-    {
-      id: 86,
-      question: "某工厂拥有15个可以进行I/O控制的设备以及2个远程I/O控制器，工厂想将设备通过多个控制器使用ModBus TCP协议连接到AloT，则在AloT中需要建立多少个通道？",
-      options: ["A. 15个", "B. 17个", "C. 2个", "D. 1个"],
-      answer: "C"
-    },
-    {
-      id: 87,
-      question: "某工厂拥有3套PLC，每PLC下面有15个设备，现使用友友AloT完成这3套PLC、45设备的数据采集，若采用OPC UA协议，则需要在AloT平台上建立多少个通道？",
-      options: ["A. 15个", "B. 45个", "C. 3个", "D. 48个"],
-      answer: "C"
-    },
-    {
-      id: 88,
-      question: "目前已知一台设备名为A，只能通过其进行数据采集，支持ModBus RTU协议，连接至智能网关COM1口，设备地址为1，寄存器地址为9600，采集参数地址为5和15，其余无特殊要求，需要如何在AloT上配置通道？",
-      options: [
-        "A. 驱动：ModBus RTU；串口号：COM1；波特率：9600；站号：1；是否批量：false；线圈范围：1,10",
-        "B. 驱动：ModBus RTU；串口号：COM1；波特率：9600；站号：1；是否批量：true；线圈范围：1,20",
-        "C. 驱动：ModBus RTU；串口号：COM1；波特率：9600；站号：1；是否批量：true；线圈范围：1,10",
-        "D. 驱动：ModBus RTU；串口号：COM1；波特率：9600；站号：1；是否批量：true；线圈范围：1,15"
-      ],
-      answer: "C"
-    },
-    {
-      id: 89,
-      question: "请分析工业现场数据采集技术在未来发展趋势？",
-      options: ["A. 高度智能化", "B. 边缘计算的应用", "C. 数据传输速度的提高", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 90,
-      question: "请解释工业现场数据采集中的“边缘计算”概念。",
-      options: [
-        "A. 在工业现场设备上进行数据处理和分析",
-        "B. 在云端进行数据处理和分析",
-        "C. 采用分布式计算",
-        "D. 以上都是"
-      ],
-      answer: "A"
-    },
-    {
-      id: 91,
-      question: "请谈谈你对工业现场数据采集的理解。",
-      options: [
-        "A. 数据采集是工业发展的重要基础",
-        "B. 数据采集有助于实现生产过程的智能化",
-        "C. 数据采集对提高生产效率和质量有积极作用",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 92,
-      question: "如果企业未按照规定存储和处理工业大数据，可能会面临的风险或处罚情况是？",
-      options: [
-        "A. 企业未按照规定采集和处理工业大数据",
-        "B. 仅因数据处理不合规被处罚",
-        "C. 仅因数据采集不合规被处罚",
-        "D. 企业未按照规定存储和处理工业大数据"
-      ],
-      answer: "D"
-    },
-    {
-      id: 93,
-      question: "如何确保工业现场数据采集的安全性？",
-      options: [
-        "A. 采用加密传输技术",
-        "B. 设置访问权限",
-        "C. 定期更新安全补丁",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 94,
-      question: "如何实现工业现场数据采集的自动化？",
-      options: [
-        "A. 使用自动采集装置",
-        "B. 引入机器学习技术",
-        "C. 远程监控系统",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 95,
-      question: "若PLC的IP地址为192.168.1.1，则AloT的IP地址应为？",
-      options: [
-        "A. 192.168.1.0",
-        "B. 192.168.0.21",
-        "C. 192.168.1.1",
-        "D. 192.198.0.21"
-      ],
-      answer: "B"
-    },
-    {
-      id: 96,
-      question: "若要采集一个设备的10个参数，则需要创建多少个设备？",
-      options: ["A. 10个", "B. 11个", "C. 1个", "D. 9个"],
-      answer: "C"
-    },
-    {
-      id: 97,
-      question: "时间敏感网络（TSN）为解决工业领域中的哪个问题而孕育而生？",
-      options: ["A. 互协调性", "B. 统一性", "C. 互操作性", "D. 高效性"],
-      answer: "C"
-    },
-    {
-      id: 98,
-      question: "实现物联网在工业设备中的主要挑战是什么？",
-      options: [
-        "A. 设备之间的互操作性不足",
-        "B. 高昂的实施成本",
-        "C. 数据隐私和安全问题",
-        "D. 可扩展性有限"
-      ],
-      answer: "C"
-    },
-    {
-      id: 99,
-      question: "物联网中数据聚合的主要目的是？",
-      options: [
-        "A. 确保数据安全",
-        "B. 压缩数据以节省存储空间",
-        "C. 结合和汇总来自多个来源的数据",
-        "D. 分析实时数据"
       ],
       answer: "C"
     },
@@ -956,1023 +784,16 @@
       answer: "B"
     },
     {
-      id: 101,
-      question: "下列对时序数据库描述正确的是？",
-      options: [
-        "A. 1s可处理1万至10万个写入请求",
-        "B. 描述通过数字模型进行计算描述",
-        "C. 采用一定的存储策略（如环形存储结构）",
-        "D. 以上全是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 102,
-      question: "下列对现场总线描述正确的是？",
-      options: [
-        "A. 在工业环境的自动化控制及过程控制中应用以太网的相关组件及技术",
-        "B. 现场总线有统一标准，彼此的开放性和互操作性基本统一",
-        "C. CC-Link、PROFIBUS、HART、MODBUS都属于现场总线",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 103,
-      question: "下列对工业以太网描述正确的是？",
-      options: [
-        "A. 工业以太网是基于普通以太网的工业网络，具有实时性、可靠性和抗干扰能力",
-        "B. 工业以太网支持多种通信协议，如TCP/IP、UDP等",
-        "C. 工业以太网可以连接各种工业设备，如PLC、传感器、执行器等",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 104,
-      question: "PCN通过无线接入，采用自组态环网，点到多点传输架构，终端接入，适合于？",
-      options: ["A. 工业环境", "B. 商业环境", "C. 家庭环境", "D. 以上都是"],
-      answer: "A"
-    },
-    {
-      id: 105,
-      question: "以下是用友物联网平台AloT的价值？",
-      options: [
-        "A. 降低数据采集成本",
-        "B. 提高数据的加工处理能力",
-        "C. 提供正交法服务",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 106,
-      question: "以下哪一项不是企业使用大数据时需要考虑的因素？",
-      options: ["A. 环保要求", "B. 社会效益", "C. 经济效益", "D. 技术可行性"],
-      answer: "A"
-    },
-    {
-      id: 107,
-      question: "以下哪个事件标志着工业大数据采集进入了一个新的阶段？",
-      options: [
-        "A. 19世纪初的蒸汽机发明",
-        "B. 20世纪初的福特流水线生产方式",
-        "C. 21世纪初的物联网技术发展",
-        "D. 2010年左右的大数据技术兴起"
-      ],
-      answer: "D"
-    },
-    {
-      id: 108,
-      question: "以下哪个不是边缘计算的典型应用场景？",
-      options: [
-        "A. 大规模数据分析",
-        "B. 实时视频监控",
-        "C. 传统企业文件管理",
-        "D. 云端人工智能模型训练"
-      ],
-      answer: "B"
-    },
-    {
-      id: 109,
-      question: "以下哪个设备需要配置485集线器接入AloT平台，设备支持ModBus RTU通讯，需要在AloT平台上建立多少个通道？",
-      options: ["A. 1个", "B. 6个", "C. 5个", "D. 10个"],
-      answer: "C"
-    },
-    {
-      id: 110,
-      question: "已知某报警灯，输入输出为开关量，我们需要对其“红灯”完成采集与控制功能，则需要如何接入I/O控制器？",
-      options: [
-        "A. 将“红灯”信号线接入任意DI口即可",
-        "B. 将“红灯”信号线接入任意AI口即可",
-        "C. 将“红灯”信号线接入任意DO口即可",
-        "D. 将“红灯”信号线接入RS485接口"
-      ],
-      answer: "C"
-    },
-    {
-      id: 111,
-      question: "已知某公司需求，当环境温度高于40℃时会报警，5秒后自动开启制冷系统，该逻辑需要用到规则引擎的哪些数据处理组件？",
-      options: ["A. 延迟运行", "B. 函数处理", "C. 分支判断", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 112,
-      question: "已知使用某设备所采集的数据进行规则引擎计算后产生两个新的数据，则创建几个设备属性用于存储新数据？",
-      options: ["A. 1个", "B. 2个", "C. 3个", "D. 不需要创建"],
-      answer: "B"
-    },
-    {
-      id: 113,
-      question: "已知某PLC通过OPC UA协议与AloT完成通讯，该PLC同时连接有13个设备，若AloT分别采集13个设备的数据则应在平台中创建多少设备？",
-      options: ["A. 14个", "B. 13个", "C. 4个", "D. 12个"],
-      answer: "B"
-    },
-    {
-      id: 114,
-      question: "已知某PLC作为OPC UA服务器端，与AloT进行通讯，ns默认为2，PLC中OPC UA属性分别为节点：http://服务器接口_1=13, http://服务器接口_1=14, http://服务器接口_1=5，则在AloT中建立设备属性时ns的值应填写为？",
-      options: [
-        "A. ns=4;i=13, ns=4;i=14, ns=4;i=5",
-        "B. ns=2;i=13, ns=2;i=14, ns=2;i=5",
-        "C. ns=2;i=13, ns=2;i=14, ns=2;i=4",
-        "D. ns=2;i=13, ns=2;i=14, ns=2;i=7"
-      ],
-      answer: "B"
-    },
-    {
-      id: 115,
-      question: "已知一传感器，通道和设备参数均配置完毕并且正确，若想完成数据采集还需要？",
-      options: ["A. 手动启动", "B. 启动采集功能，无需任何操作", "C. 其它操作", "D. 以上都不是"],
-      answer: "C"
-    },
-    {
-      id: 116,
-      question: "已知一设备输入和输出均为4-20mA电流模拟量信号，则接入本次实验所用的PLC模块为？",
-      options: [
-        "A. 中央处理器模块：DI, DQ",
-        "B. 中央处理器模块：AI, AQ",
-        "C. 模拟量输入输出模块：AI, AQ",
-        "D. 模块电流信号：AI, AQ"
-      ],
-      answer: "C"
-    },
-    {
-      id: 117,
-      question: "以下关于工业大数据采集的描述中，正确的是？",
-      options: [
-        "A. 需要遵守相关法规和标准",
-        "B. 不需要遵守任何法规或标准",
-        "C. 可以随意使用数据，无需考虑合法性",
-        "D. 数据的安全性和隐私不重要"
-      ],
-      answer: "A"
-    },
-    {
-      id: 118,
-      question: "以下哪个边缘计算架构不属于工业互联网？",
-      options: ["A. 边缘网关", "B. 边缘控制器", "C. 边缘路由器", "D. 所有以上"],
-      answer: "A"
-    },
-    {
-      id: 119,
-      question: "以下哪个编程语言在工业互联网边缘计算中应用较多？",
-      options: ["A. Python", "B. C++", "C. Java", "D. PHP"],
-      answer: "A"
-    },
-    {
-      id: 120,
-      question: "以下哪个不是边缘计算的典型应用场景？",
-      options: ["A. 智能城市", "B. 科学研究", "C. 传统企业文件管理", "D. 工业自动化"],
-      answer: "C"
-    },
-    {
-      id: 121,
-      question: "以下哪个不是边缘计算的典型应用场景？",
-      options: ["A. 人脸识别", "B. 物联网设备监控", "C. 文件管理", "D. 医疗诊断"],
-      answer: "C"
-    },
-    {
-      id: 122,
-      question: "以下哪个不是边缘计算的关键特征之一？",
-      options: ["A. 低延迟", "B. 高带宽网络", "C. 低安全性", "D. 数据隐私保护"],
-      answer: "C"
-    },
-    {
-      id: 123,
-      question: "以下哪个不是边缘计算的应用场景？",
-      options: ["A. 电子邮件服务", "B. 智能城市", "C. 工业自动化", "D. 大规模数据分析"],
-      answer: "A"
-    },
-    {
-      id: 124,
-      question: "以下哪个不是工业互联网的关键技术？",
-      options: ["A. 传感器技术", "B. 云计算", "C. 人工智能", "D. 数据库管理"],
-      answer: "D"
-    },
-    {
-      id: 125,
-      question: "以下哪个不是工业互联网数据采集的案例？",
-      options: ["A. 传感器采集", "B. 手动输入采集", "C. API接口采集", "D. 网络爬虫采集"],
-      answer: "B"
-    },
-    {
-      id: 126,
-      question: "以下哪个不是工业互联网数据采集的主要方法？",
-      options: ["A. 传感器采集", "B. 手动输入采集", "C. API接口采集", "D. 网络爬虫采集"],
-      answer: "B"
-    },
-    {
-      id: 127,
-      question: "以下哪个云服务提供商在工业互联网边缘计算方面具有优势？",
-      options: ["A. 亚马逊AWS", "B. 微软Azure", "C. 谷歌Cloud", "D. 中国电信天翼云"],
-      answer: "A"
-    },
-    {
-      id: 128,
-      question: "以下哪项不是进行数据采集的设备调研需要了解的主要内容？",
-      options: [
-        "A. 设备的工业通信协议",
-        "B. 设备的操作人员",
-        "C. 控制设备有无源程序或点表",
-        "D. 设备的通信接口类型"
-      ],
-      answer: "B"
-    },
-    {
-      id: 129,
-      question: "以下哪个不属于物联网系统的典型组成部分？",
-      options: ["A. 传感器", "B. 云计算", "C. 数据分析", "D. 打印机"],
-      answer: "D"
-    },
-    {
-      id: 130,
-      question: "以下哪个不属于工业互联网数据采集的典型场景？",
-      options: ["A. 智能工厂", "B. 智能物流", "C. 智能家居", "D. 太空探索"],
-      answer: "D"
-    },
-    {
-      id: 131,
-      question: "以下哪个不属于工业互联网的数据采集对象？",
-      options: ["A. 传感器", "B. 控制器", "C. 云计算", "D. 数据库"],
-      answer: "C"
-    },
-    {
-      id: 132,
-      question: "以下哪个不属于工业互联网的数据采集与传输设备？",
-      options: ["A. 传感器", "B. 控制器", "C. 云计算", "D. 智能手机"],
-      answer: "D"
-    },
-    {
-      id: 133,
-      question: "以下哪项不属于工业互联网平台的四大功能？",
-      options: ["A. 数据采集", "B. 数据存储", "C. 数据处理", "D. 数据展示"],
-      answer: "D"
-    },
-    {
-      id: 134,
-      question: "以下哪项不属于工业互联网平台的四大功能？",
-      options: ["A. 设备连接层", "B. 数据管理层", "C. 应用服务层", "D. 企业运营层"],
-      answer: "D"
-    },
-    {
-      id: 135,
-      question: "以下哪项不属于工业控制系统的三个层次？",
-      options: ["A. 现场层", "B. 操作层", "C. 管理层", "D. 技术层"],
-      answer: "D"
-    },
-    {
-      id: 136,
-      question: "以下哪项不属于数据采集设备的分类？",
-      options: ["A. 温度传感器", "B. 压力传感器", "C. 湿度传感器", "D. 路由器"],
-      answer: "D"
-    },
-    {
-      id: 137,
-      question: "以下哪项不属于数据采集系统的性能指标？",
-      options: ["A. 采集精度", "B. 采集速率", "C. 传输速率", "D. 存储容量"],
-      answer: "D"
-    },
-    {
-      id: 138,
-      question: "以下哪项不属于数据采集系统的组成部分？",
-      options: ["A. 数据采集设备", "B. 数据传输设备", "C. 数据处理设备", "D. 人工智能"],
-      answer: "D"
-    },
-    {
-      id: 139,
-      question: "以下哪项技术不属于工业互联网的关键技术？",
-      options: ["A. 传感器技术", "B. 无线通信技术", "C. 信息安全技术", "D. 量子计算技术"],
-      answer: "D"
-    },
-    {
-      id: 140,
-      question: "以下哪项技术不属于数据采集的无线通信技术？",
-      options: ["A. 蓝牙", "B. Wi-Fi", "C. 5G", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 141,
-      question: "以下哪项技术不属于数据采集的有线通信技术？",
-      options: ["A. RS-485", "B. 以太网", "C. 光纤", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 142,
-      question: "以下哪项技术不属于数据展示的？",
-      options: ["A. 图表", "B. 图像", "C. 声音", "D. 以上都是"],
-      answer: "A"
-    },
-    {
-      id: 143,
-      question: "以下哪项不是工业设备中物联网应用的示例？",
-      options: ["A. 智能恒温器", "B. 家庭安全系统", "C. 预测性维护", "D. 健身追踪器"],
-      answer: "C"
-    },
-    {
-      id: 144,
-      question: "以下哪些方法可以提高工业现场数据采集的效率？",
-      options: ["A. 采用多线程技术", "B. 使用高速数据传输设备", "C. 优化数据采集算法", "D. 全部以上"],
-      answer: "D"
-    },
-    {
-      id: 145,
-      question: "以下哪些工业协议常用于工业现场数据采集？",
-      options: ["A. Modbus", "B. Profibus", "C. OPC UA", "D. All of the above"],
-      answer: "D"
-    },
-    {
-      id: 146,
-      question: "以下哪些技术属于工业现场数据采集的关键技术？",
-      options: ["A. 传感器技术", "B. 工业以太网技术", "C. 人工智能技术", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 147,
-      question: "以下哪些设备可用于工业现场数据采集？",
-      options: ["A. PLC, PDA", "B. SCADA", "C. DCS", "D. 工业相机"],
-      answer: "D"
-    },
-    {
-      id: 148,
-      question: "以下哪些信号属于模拟信号？",
-      options: ["A. 温度信号、压力信号", "B. 数字信号", "C. 4G信号", "D. 频率信号"],
-      answer: "A"
-    },
-    {
-      id: 149,
-      question: "以下哪种传感器适用于湿度检测？",
-      options: ["A. 光电传感器", "B. 红外传感器", "C. 压力传感器", "D. 湿度传感器"],
-      answer: "B"
-    },
-    {
       id: 150,
       question: "以下哪种传感器适用于光照检测？",
       options: ["A. 光电传感器", "B. 红外传感器", "C. 流量传感器", "D. 以上都是"],
       answer: "D"
     },
     {
-      id: 151,
-      question: "以下哪种传感器适用于气体浓度检测？",
-      options: ["A. 光电传感器", "B. 红外传感器", "C. 电化学传感器", "D. 超声波传感器"],
-      answer: "C"
-    },
-    {
-      id: 152,
-      question: "以下哪种传感器适用于湿度检测？",
-      options: ["A. 光电传感器", "B. 红外传感器", "C. 电容式传感器", "D. 超声波传感器"],
-      answer: "C"
-    },
-    {
-      id: 153,
-      question: "以下哪种传感器适用于速度检测？",
-      options: ["A. 光电传感器", "B. 红外传感器", "C. 霍尔传感器", "D. 激光传感器"],
-      answer: "C"
-    },
-    {
-      id: 154,
-      question: "以下哪种传感器适用于位移检测？",
-      options: ["A. 光电传感器", "B. 红外传感器", "C. 电阻式传感器", "D. 电容式传感器"],
-      answer: "C"
-    },
-    {
-      id: 155,
-      question: "以下哪种传感器适用于压力检测？",
-      options: ["A. 光电传感器", "B. 红外传感器", "C. 电容式传感器", "D. 超声波传感器"],
-      answer: "C"
-    },
-    {
-      id: 156,
-      question: "以下哪种设备不属于工业现场数据采集设备？",
-      options: ["A. 传感器", "B. PLC", "C. 个人电脑", "D. 智能手机"],
-      answer: "D"
-    },
-    {
-      id: 157,
-      question: "以下哪种通信方式在工业现场数据采集系统中应用较为广泛？",
-      options: ["A. 蓝牙", "B. Wi-Fi", "C. ZigBee", "D. GPS"],
-      answer: "C"
-    },
-    {
-      id: 158,
-      question: "用友物联网平台AloT包含哪些模块？",
-      options: ["A. 设备物联", "B. YonBuilder低代码开发平台", "C. 规则引擎", "D. 以上全是"],
-      answer: "D"
-    },
-    {
-      id: 159,
-      question: "用友物联网平台AloT具有哪些运营模式？",
-      options: ["A. 公有云", "B. 私有云", "C. 混合云", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 160,
-      question: "用友物联网平台AloT具有哪些特性？",
-      options: ["A. 全面的协议支持", "B. 实时数据存储及发布", "C. 2D/3D组态", "D. 以上全是"],
-      answer: "D"
-    },
-    {
-      id: 161,
-      question: "用友物联网平台AloT通过规则引擎解决了什么问题？",
-      options: ["A. 数据处理问题", "B. 数据分发问题", "C. 自动控制问题", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 162,
-      question: "边缘计算对网络安全有何影响？",
-      options: ["A. 提高安全性", "B. 不影响安全性", "C. 降低安全性", "D. 只影响云端安全性"],
-      answer: "A"
-    },
-    {
-      id: 163,
-      question: "边缘计算如何提高物联网（IoT）设备的效率？",
-      options: [
-        "A. 通过增加数据传输至云端",
-        "B. 通过减少对设备的依赖",
-        "C. 通过降低设备的成本",
-        "D. 通过在云端进行大规模计算"
-      ],
-      answer: "B"
-    },
-    {
-      id: 164,
-      question: "边缘计算如何有助于减少网络流量？",
-      options: [
-        "A. 将所有数据存储在云端",
-        "B. 只使用高带宽网络连接",
-        "C. 在边缘设备上进行数据过滤和摘要，减少传输量",
-        "D. 使用更多的数据包进行传输"
-      ],
-      answer: "C"
-    },
-    {
-      id: 165,
-      question: "边缘计算相对于云计算的优势是什么？",
-      options: ["A. 更低的计算能力", "B. 更大的存储容量", "C. 低延迟和实时处理", "D. 更高的网络带宽"],
-      answer: "C"
-    },
-    {
-      id: 166,
-      question: "边缘计算中，“边缘节点”通常指的是什么？",
-      options: ["A. 云端数据中心", "B. 传感器", "C. 电源和网络接口", "D. 无线通信网络"],
-      answer: "B"
-    },
-    {
-      id: 167,
-      question: "在工业大数据采集过程中，下列哪一项不是职业素养的体现？",
-      options: [
-        "A. 具备扎实的专业知识和技能",
-        "B. 具备良好的沟通能力和团队合作能力",
-        "C. 具备严谨细致的工作态度",
-        "D. 具备较高的英语水平"
-      ],
-      answer: "D"
-    },
-    {
-      id: 168,
-      question: "在工业大数据采集过程中，下列哪一项不是职业素养的重要体现？",
-      options: [
-        "A. 提高数据质量",
-        "B. 保护数据安全",
-        "C. 遵守法律和道德规范",
-        "D. 提升个人技能水平"
-      ],
-      answer: "D"
-    },
-    {
-      id: 169,
-      question: "在工业大数据采集技术的发展过程中，下列哪一项技术起到了关键的推动作用？",
-      options: [
-        "A. 云计算技术",
-        "B. 数据挖掘和分析技术",
-        "C. 大数据存储技术",
-        "D. 物联网技术"
-      ],
-      answer: "B"
-    },
-    {
-      id: 170,
-      question: "在工业大数据应用过程中，下列哪一项不是职业素养对个人隐私的保护措施？",
-      options: [
-        "A. 去标识化处理数据",
-        "B. 无条件共享和使用数据",
-        "C. 加密存储个人数据",
-        "D. 限制数据访问权限"
-      ],
-      answer: "B"
-    },
-    {
-      id: 171,
-      question: "在工业大数据应用过程中，下列哪一项不是职业素养对数据安全的要求？",
-      options: [
-        "A. 加密存储敏感数据",
-        "B. 限制数据访问权限",
-        "C. 保护个人隐私和企业商业机密",
-        "D. 无条件共享和使用数据"
-      ],
-      answer: "D"
-    },
-    {
-      id: 172,
-      question: "在工业互联网应用中，边缘技术的主要作用是什么？",
-      options: [
-        "A. 提高生产效率",
-        "B. 提高设备运行稳定性",
-        "C. 实现数据实时分析与处理",
-        "D. 降低生产成本"
-      ],
-      answer: "C"
-    },
-    {
-      id: 173,
-      question: "在工业互联网中，数据采集与传输的时间间隔应该如何选择？",
-      options: ["A. 越短越好", "B. 越长越好", "C. 根据实际需求选择", "D. 无所谓"],
-      answer: "C"
-    },
-    {
-      id: 174,
-      question: "在工业互联网中，数据采集与传输的安全性非常重要，以下哪项措施可以提高数据传输的安全性？",
-      options: ["A. 使用加密算法", "B. 增加传输速率", "C. 使用防火墙", "D. 以上都是"],
-      answer: "A"
-    },
-    {
-      id: 175,
-      question: "在工业互联网中，数据采集与传输的主要目的是什么？",
-      options: [
-        "A. 提高生产效率",
-        "B. 降低生产成本",
-        "C. 提高产品质量",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 176,
-      question: "在工业互联网中，数据采集与传输的主要手段有哪些？",
-      options: ["A. 有线通信", "B. 无线通信", "C. 卫星通信", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 177,
-      question: "在工业互联网中，数据采集与传输对生产过程有哪些影响？",
-      options: [
-        "A. 提高生产效率",
-        "B. 降低生产成本",
-        "C. 提高产品质量",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 178,
-      question: "在工业设备数据采集过程中，使用物联网的主要好处是什么？",
-      options: [
-        "A. 提高效率和生产力",
-        "B. 降低维护成本",
-        "C. 改善安全性和风险规避",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 179,
-      question: "在工业数据采集场景中，以下哪种联网方式较为合适？",
-      options: ["A. Wi-Fi", "B. 以太网", "C. 4G", "D. GPRS"],
-      answer: "B"
-    },
-    {
-      id: 180,
-      question: "在工业现场，以下哪些设备用于数据采集？",
-      options: ["A. PLC", "B. SCADA", "C. DCS", "D. 工业相机"],
-      answer: "D"
-    },
-    {
-      id: 181,
-      question: "在工业现场数据采集过程中，如何解决数据传输的延迟问题？",
-      options: [
-        "A. 使用高速数据传输设备",
-        "B. 优化数据传输协议",
-        "C. 采用实时操作系统",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 182,
-      question: "在工业现场数据采集系统中，以下哪个通信协议不属于串行通信协议？",
-      options: ["A. RS-232", "B. RS-485", "C. I2C", "D. USB"],
-      answer: "D"
-    },
-    {
-      id: 183,
-      question: "在工业现场数据采集系统中，以下哪个信号调理不属于模拟信号调理？",
-      options: ["A. 滤波", "B. 放大", "C. 模拟-数字转换", "D. 数字信号处理"],
-      answer: "C"
-    },
-    {
-      id: 184,
-      question: "在工业现场数据采集系统项目中，如何进行有效的团队协作？",
-      options: [
-        "A. 明确分工与职责",
-        "B. 建立沟通机制",
-        "C. 制定详细的项目计划",
-        "D. 以上都是"
-      ],
-      answer: "D"
-    },
-    {
-      id: 185,
-      question: "在每天的08:00-10:00时间段内周期性使用“注入数据”组件，则应使用什么注入规则？",
-      options: ["A. 无：不重复", "B. 周期性执行", "C. 指定时间段内周期性执行", "D. 指定时间"],
-      answer: "C"
-    },
-    {
-      id: 186,
-      question: "在哪个领域，边缘计算对于数据隐私性尤为重要？",
-      options: ["A. 科学研究", "B. 农业", "C. 医疗保健", "D. 财务服务"],
-      answer: "C"
-    },
-    {
-      id: 187,
-      question: "在哪个领域，边缘计算对于提高电子商务体验尤为关键？",
-      options: ["A. 在线社交平台", "B. 电子商务", "C. 农业", "D. 物流管理"],
-      answer: "B"
-    },
-    {
-      id: 188,
-      question: "在哪个领域，边缘计算对于提高在线视频游戏体验尤为关键？",
-      options: ["A. 在线社交平台", "B. 电子商务", "C. 实时在线视频游戏", "D. 在云端进行图形渲染"],
-      answer: "C"
-    },
-    {
-      id: 189,
-      question: "边缘计算在哪个领域对于提高高能物理的可持续性尤为关键？",
-      options: ["A. 餐饮业", "B. 制造业", "C. 音乐产业", "D. 电子商务"],
-      answer: "B"
-    },
-    {
-      id: 190,
-      question: "在哪个行业，边缘计算对于提高设备效率尤为关键？",
-      options: ["A. 餐饮业", "B. 制造业", "C. 音乐产业", "D. 电子商务"],
-      answer: "B"
-    },
-    {
-      id: 191,
-      question: "在哪个应用场景中，边缘计算对于提高安全监控效果尤为关键？",
-      options: ["A. 电子商务", "B. 工业自动化", "C. 智能家居", "D. 实时视频监控"],
-      answer: "D"
-    },
-    {
-      id: 192,
-      question: "在哪个应用场景中，边缘计算对于提高虚拟现实体验尤为关键？",
-      options: ["A. 在线社交平台", "B. 电子商务", "C. 实时在线虚拟现实游戏", "D. 在云端进行图形渲染"],
-      answer: "C"
-    },
-    {
-      id: 193,
-      question: "在哪种情况下，边缘计算比云计算更具优势？",
-      options: [
-        "A. 大规模批处理任务",
-        "B. 实时数据处理和低延迟要求",
-        "C. 数据存储需求高的场景",
-        "D. 对安全性要求不高的应用"
-      ],
-      answer: "B"
-    },
-    {
-      id: 194,
-      question: "在企业的生产经营活动中，设备管理的主要内容不包括以下哪一项？",
-      options: ["A. 设备资产及技术管理", "B. 设备缺陷管理", "C. 设备事故管理", "D. 人员信息管理"],
-      answer: "D"
-    },
-    {
-      id: 195,
-      question: "在物联网设备中常用的通信协议是？",
-      options: ["A. TCP/IP", "B. FTP", "C. HTTP", "D. MQTT"],
-      answer: "D"
-    },
-    {
-      id: 196,
-      question: "在智能城市中，边缘计算可以用于哪些方面？",
-      options: ["A. 交通流量监测", "B. 云端数据存储", "C. 虚拟现实体验", "D. 音乐制作"],
-      answer: "A"
-    },
-    {
-      id: 197,
-      question: "智能仪表物理实验，能否使用网线连接？",
-      options: ["A. 能", "B. 不能", "", ""],
-      answer: "A"
-    },
-    {
-      id: 198,
-      question: "注入数据组件主要是用来？",
-      options: ["A. 采集数据", "B. 注入控制参数", "C. 自动控制问题", "D. 以上都是"],
-      answer: "D"
-    },
-    {
-      id: 199,
-      question: "“ModBus协议支持传统的RS-232、RS-422、RS-485和以太网设备，许多工业设备，包括PLC、DCS、智能仪表等都在使用ModBus协议作为他们之间的通讯标准。”这句话是否正确？",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
       id: 200,
-      question: "“工业通信协议是指工业控制领域内双方实体完成通信或服务所必须遵循的规则和约定。通过通信通道和设备互联组成的多个地理位置的数据通信系统，要使其能协同工作实现信息交换和资源共享，它们之间必须具有共同语言，交流什么、怎样交流及合适交流，都必须遵循某种都能接收的规则，这个规则就是工业通信协议。”这句话是否正确？",
+      question: "\"工业通信协议是指工业控制领域内双方实体完成通信或服务所必须遵循的规则和约定。通过通信通道和设备互联组成的多个地理位置的数据通信系统，要使其能协同工作实现信息交换和资源共享，它们之间必须具有共同语言，交流什么、怎样交流及合适交流，都必须遵循某种都能接收的规则，这个规则就是工业通信协议。\"这句话是否正确？",
       options: ["A. 正确", "B. 错误", "", ""],
       answer: "A"
-    },
-    {
-      id: 201,
-      question: "“工业以太网最大的优势在于能够使企业的信息网络和控制网络实现统一，容易实现网络集成，开发技术广泛，价格低廉，容易获得众多厂商的支持。”这句话是否正确？",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 202,
-      question: "“规则引擎支持无代码规则的创建和开发，如果遇到复杂的业务逻辑，可以使用JavaScript脚本进行逻辑的编写，通过功能块的拼接和搭配，完成规则的编写，实现用户的所有业务逻辑要求。”这句话是否正确？",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 203,
-      question: "“应采用机器学习、神经网络等，实现设备运行模型的自学习、自优化”是G错误13911-2020《智能制造能力成熟度模型》标准中，设备管理的第四级。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 204,
-      question: "“远程I/O就是具有通信功能的数据采集/传输模块，自身具备控制调节功能，将现场数据送到控制中心，以及接受控制中心的指令或自主对现场设备进行控制。”这句话描述是否正确？",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "B"
-    },
-    {
-      id: 205,
-      question: "AloT可以帮助工业设备实现自动化控制。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 206,
-      question: "AloT可以实现工业设备之间的远程通信和协同工作。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 207,
-      question: "AloT可以提高工业设备的运行效率。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 208,
-      question: "AloT是人工智能和物联网的结合。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 209,
-      question: "AloT通过OPC UA协议与PLC进行通讯时，配置通信的节点填写PLC所在的设备的地址是否正确？",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 210,
-      question: "AloT在工业设备数据采集中的作用主要用于数据存储和处理。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "B"
-    },
-    {
-      id: 211,
-      question: "ModBus协议支持传统的RS-232、RS-422、RS-485和以太网设备，许多工业设备，包括PLC、DCS、智能仪表等都在使用ModBus协议作为他们之间的通讯标准。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 212,
-      question: "PLC可以根据预设的逻辑程序控制工业设备的运行。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 213,
-      question: "PLC可以实时监测和控制工业设备的运行状态。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 214,
-      question: "PLC可以通过传感器获取工业设备的数据。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 215,
-      question: "PLC是指程序控制器语言。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "B"
-    },
-    {
-      id: 216,
-      question: "PLC只能用于数字信号的控制。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "B"
-    },
-    {
-      id: 217,
-      question: "SQL数据库管理系统、Hadoop分布式计算系统、Python编程语言、R统计软件包等都是工业互联网数据采集的主要工具。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 218,
-      question: "安全监测数据采集用于监测和预警潜在的安全风险。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 219,
-      question: "本次I/O类设备物联实验，能否使用PC机控制RS485接口连接数据采集服务器？",
-      options: ["A. 能", "B. 不能", "", ""],
-      answer: "A"
-    },
-    {
-      id: 220,
-      question: "传感器技术、云计算、大数据、人工智能等都是工业互联网数据采集的主要技术手段。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 221,
-      question: "传感器数据采集是工业大数据采集的常见方向之一。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 222,
-      question: "从本课程看，工业4.0是在国家战略层面上实现工业价值创造的手段。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 223,
-      question: "从数据到信息到价值的转化过程中一个重要的概念是数据/信息价值链。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 224,
-      question: "对工厂外智能产品/装备的数据采集，主要用于实现智能产品的远程监控、健康状态监测和远程维护服务。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 225,
-      question: "对时序数据库的描述是否正确：实时数据库是采用实时数据模型建立起来的数据库，用于处理不断更新的快速变化的数据及具有时间限制的事务处理。实时数据库技术是实时系统和数据库技术相结合的产物，利用数据库技术来解决实时系统中的数据管理问题，同时利用实时技术为实时数据库提供时间驱动调度和资源分配算法。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 226,
-      question: "数据安全和隐私保护问题是工业互联网数据采集的主要挑战之一。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 227,
-      question: "数据安全和隐私保护问题是工业互联网数据采集的主要挑战之一。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 228,
-      question: "数据量大、处理复杂性高、数据类型多样、格式不统一、数据质量差、准确性低、数据安全性和隐私保护难以实现都是工业互联网数据采集的主要难点。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 229,
-      question: "数据采集、数据处理、数据分析、数据应用等都是工业互联网数据采集的主要步骤。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 230,
-      question: "提高生产效率和产品质量，降低生产成本，优化生产流程，提高资源利用效率是工业互联网数据采集的主要优势。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 231,
-      question: "完成智能仪表物联实验后进行北向导出，在云端建立一个父设备即可。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 232,
-      question: "下列对智能仪表物联实验设备参数编号分配是否正确：1：温度变送器；2：电流电压采集器；3：压力变送器",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 233,
-      question: "工业互联网数据采集的发展历程受到法律法规和政策的引导和规范。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 234,
-      question: "已知一传感器，适用ModBus RTU通信协议，通道配置已完成，需采集数据的十六进制起始地址为0008，则在AloT设备参数配置时起始地址填写0008和18是否正确？",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 235,
-      question: "已知一传感器，通道和设备参数均已配置完毕并且正确，无需任何操作，AloT自动采集是否正确？",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 236,
-      question: "用友物联网平台AloT不仅支持YonBIP系列产品也支持用友内其他产品系列，同时支持其他公司应用软件的集成",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 237,
-      question: "用友物联网平台AloT的五个“自驱动”是“设备自发现、设备自匹配、实例自生成、数据自采集、知识自学习”",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 238,
-      question: "远程I/O是具有通信功能的数据采集/传输模块，自身具备控制调节功能，将现场数据送到控制中心，以及接受控制中心的指令或自主对现场设备进行控制。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "B"
-    },
-    {
-      id: 239,
-      question: "在边缘端进行北向导出时，复制公共云父设备三元组时仅需复制其中一个就可以",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "B"
-    },
-    {
-      id: 240,
-      question: "在边缘端中设备名称为“a”，则在公共云中子设备名称也应该是“a”",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 241,
-      question: "在工业大数据采集和处理过程中，必须遵循数据保护原则和相关法律法规",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 242,
-      question: "在工业大数据采集和处理过程中，可以使用各种技术和工具来提高效率和准确性，但不需要考虑数据的安全性和隐私保护问题",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "B"
-    },
-    {
-      id: 243,
-      question: "在获取实时数据时，选取了三个位号，是否能使用“只输出位号的value”的输出方式",
-      options: ["A. 能", "B. 不能", "", ""],
-      answer: "B"
-    },
-    {
-      id: 244,
-      question: "在完成智能仪表物联实验的北向导出后，数据展示正常，若更改边缘端的设备名称或属性名称，则公共云中数据能否正常采集？",
-      options: ["A. 能", "B. 不能", "", ""],
-      answer: "B"
-    },
-    {
-      id: 245,
-      question: "窄带物联网是基于E-UTRAN技术，使用180MHz的载波传输带宽，支持低功耗设备在广域网的一种蜂窝数据连接技术，具备广覆盖、支持海量连接、支持低功耗、低速率、仅需低频段传输可覆盖30公里范围的特点，属于低功耗广域网的一种网络类型。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "B"
-    },
-    {
-      id: 246,
-      question: "只有采集足够大量的工业大数据，才能基于工业大数据做分析、处理、监控、智能决策等，才能实现数字化的价值。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 247,
-      question: "智能仪表核心功能之一是尽可能全地分析设备全生命周期内各类要素相关的数据和信息。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "B"
-    },
-    {
-      id: 248,
-      question: "智能仪表是计算机技术与测试技术相结合的产物，是含有微计算机或微处理器的仪器，它具有对数据的存储、运算、逻辑判断及自动化操作等功能，有的还具有自校正、自诊断、自适应、自学习的功能，具有一定智能的作用。",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "A"
-    },
-    {
-      id: 249,
-      question: "智能仪表物联实验，可以使用网线连接是否正确？",
-      options: ["A. 正确", "B. 错误", "", ""],
-      answer: "B"
     },
     {
       id: 250,
@@ -1980,7 +801,6 @@
       options: ["A. 正确", "B. 错误", "", ""],
       answer: "A"
     }
-
       ];
       
       // 全局变量
@@ -1988,6 +808,7 @@
       let userAnswers = {};
       let results = {};
       let usedQuestionIndices = [];
+      let currentMode = ''; // 当前模式：'exam' 或 'practice'
       
       // 作答计时器变量
       let timerInterval;
@@ -1996,20 +817,62 @@
       // 密码保护逻辑
       const password = 'jy5247';
       const passwordProtection = document.getElementById('password-protection');
+      const modeSelection = document.getElementById('mode-selection');
       const questionCountSelection = document.getElementById('question-count-selection');
       const passwordInput = document.getElementById('password-input');
       const passwordSubmit = document.getElementById('password-submit');
       const errorMessage = document.getElementById('error-message');
 
+      // 主题切换功能
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = themeToggle.querySelector('i');
+      
+      themeToggle.addEventListener('click', function() {
+          document.body.classList.toggle('dark-theme');
+          if(document.body.classList.contains('dark-theme')) {
+              themeIcon.className = 'fas fa-sun';
+          } else {
+              themeIcon.className = 'fas fa-moon';
+          }
+      });
+
       passwordSubmit.addEventListener('click', function() {
           if (passwordInput.value === password) {
               passwordProtection.classList.add('hidden');
-              questionCountSelection.classList.remove('hidden');
+              modeSelection.classList.remove('hidden');
           } else {
               errorMessage.style.display = 'block';
               passwordInput.value = '';
               passwordInput.focus();
           }
+      });
+      
+      // 回车提交密码
+      passwordInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+              passwordSubmit.click();
+          }
+      });
+
+      // 模式选择逻辑
+      const practiceModeBtn = document.getElementById('practice-mode-btn');
+      const examModeBtn = document.getElementById('exam-mode-btn');
+      const currentModeDisplay = document.getElementById('current-mode');
+
+      practiceModeBtn.addEventListener('click', function() {
+          currentMode = 'practice';
+          modeSelection.classList.add('hidden');
+          questionCountSelection.classList.remove('hidden');
+          currentModeDisplay.innerHTML = '<i class="fas fa-book"></i> 练习模式 - 答题后可立即查看答案';
+          currentModeDisplay.style.color = '#27ae60';
+      });
+
+      examModeBtn.addEventListener('click', function() {
+          currentMode = 'exam';
+          modeSelection.classList.add('hidden');
+          questionCountSelection.classList.remove('hidden');
+          currentModeDisplay.innerHTML = '<i class="fas fa-clipboard-check"></i> 考试模式 - 提交后统一查看结果';
+          currentModeDisplay.style.color = '#3498db';
       });
 
       // 题目数量选择逻辑
@@ -2027,11 +890,18 @@
           // 确保隐藏考试结果区域，并显示考试区域（考试区域可能保留上次结果）
           document.getElementById('results').style.display = 'none';
           document.getElementById('exam-form').style.display = 'block';
-          document.getElementById('submit-btn').style.display = 'block';
+          document.getElementById('submit-btn').style.display = currentMode === 'exam' ? 'block' : 'none';
           
           questionCountSelection.classList.add('hidden');
           examContent.classList.remove('hidden');
           initExam(count);
+      });
+      
+      // 回车确认题目数量
+      questionCountInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+              questionCountSubmit.click();
+          }
       });
 
       // 洗牌函数（Fisher-Yates 算法）
@@ -2060,7 +930,7 @@
           usedQuestionIndices = [];
           document.getElementById('exam-form').innerHTML = '';
           document.getElementById('progress-bar').style.width = '0';
-          document.getElementById('timer').textContent = "已用时: 00:00";
+          document.getElementById('timer').innerHTML = '<i class="fas fa-clock"></i> 已用时: 00:00';
           document.getElementById('final-time').textContent = "";
           
           // 打乱题库并选择题目
@@ -2073,26 +943,108 @@
           
           // 生成题目
           const examForm = document.getElementById('exam-form');
-          shuffledQuestions.forEach(q => {
+          shuffledQuestions.forEach((q, index) => {
               const questionDiv = document.createElement('div');
-              questionDiv.className = 'question';
+              questionDiv.className = 'question fade-in';
+              if (index === 0) questionDiv.classList.add('current-question');
               questionDiv.id = `question-${q.id}`;
+              
+              let optionsHtml = '';
+              q.options.forEach(option => {
+                  const optionLetter = option.charAt(0);
+                  optionsHtml += `
+                      <div class="option" data-option="${optionLetter}">
+                          <label>
+                              <input type="radio" name="question-${q.id}" value="${optionLetter}">
+                              ${option}
+                          </label>
+                      </div>
+                  `;
+              });
+              
               questionDiv.innerHTML = `
-                  <div class="question-title">${q.question}</div>
-                  <div class="options">
-                      ${q.options.map(option => `
-                          <div class="option">
-                              <label>
-                                  <input type="radio" name="question-${q.id}" value="${option.charAt(0)}">
-                                  ${option}
-                              </label>
-                          </div>
-                      `).join('')}
+                  <div class="question-title">
+                      <span class="question-number">${index + 1}. </span>
+                      ${q.question}
                   </div>
+                  <div class="options">
+                      ${optionsHtml}
+                  </div>
+                  <div class="answer-feedback" id="feedback-${q.id}"></div>
               `;
               examForm.appendChild(questionDiv);
           });
+          
           updateProgressBar();
+          
+          // 如果是练习模式，添加选项点击事件监听
+          if (currentMode === 'practice') {
+              document.querySelectorAll('.option').forEach(option => {
+                  option.addEventListener('click', handlePracticeModeSelection);
+              });
+          }
+      }
+      
+      // 练习模式下，点击选项后的处理
+      function handlePracticeModeSelection(e) {
+          const optionDiv = this;
+          const questionDiv = optionDiv.closest('.question');
+          const questionId = parseInt(questionDiv.id.replace('question-', ''));
+          const selectedOption = optionDiv.dataset.option;
+          const feedbackDiv = document.getElementById(`feedback-${questionId}`);
+          
+          // 查找对应的题目和正确答案
+          const question = shuffledQuestions.find(q => q.id === questionId);
+          const correctAnswer = question.answer;
+          
+          // 保存用户答案
+          userAnswers[questionId] = selectedOption;
+          
+          // 更新UI：标记所有选项
+          questionDiv.querySelectorAll('.option').forEach(opt => {
+              opt.classList.remove('selected');
+              if (opt.dataset.option === selectedOption) {
+                  opt.classList.add('selected');
+              }
+          });
+          
+          // 显示反馈
+          feedbackDiv.style.display = 'block';
+          if (selectedOption === correctAnswer) {
+              feedbackDiv.className = 'answer-feedback correct';
+              feedbackDiv.innerHTML = `<i class="fas fa-check-circle"></i> 正确！答案是：${correctAnswer}`;
+          } else {
+              feedbackDiv.className = 'answer-feedback incorrect';
+              feedbackDiv.innerHTML = `<i class="fas fa-times-circle"></i> 错误！正确答案是：${correctAnswer}`;
+          }
+          
+          updateProgressBar();
+          
+          // 移除事件监听，防止重复点击
+          questionDiv.querySelectorAll('.option').forEach(opt => {
+              opt.removeEventListener('click', handlePracticeModeSelection);
+          });
+          
+          // 滚动到下一题（如果有）
+          const currentIndex = Array.from(document.querySelectorAll('.question')).indexOf(questionDiv);
+          if (currentIndex < shuffledQuestions.length - 1) {
+              const nextQuestion = document.querySelectorAll('.question')[currentIndex + 1];
+              setTimeout(() => {
+                  document.querySelectorAll('.question').forEach(q => q.classList.remove('current-question'));
+                  nextQuestion.classList.add('current-question');
+                  nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }, 800);
+          } else {
+              // 如果是最后一题，显示完成消息
+              setTimeout(() => {
+                  alert('恭喜！您已完成所有题目。');
+                  
+                  // 计算结果并显示
+                  calculateResults();
+                  document.getElementById('exam-form').style.display = 'none';
+                  document.getElementById('results').style.display = 'block';
+              }, 800);
+          }
       }
       
       // 更新时间显示（格式：mm:ss）
@@ -2103,7 +1055,7 @@
           const formattedTime = 
               (minutes < 10 ? "0" + minutes : minutes) + ":" + 
               (seconds < 10 ? "0" + seconds : seconds);
-          document.getElementById('timer').textContent = "已用时: " + formattedTime;
+          document.getElementById('timer').innerHTML = '<i class="fas fa-clock"></i> 已用时: ' + formattedTime;
       }
       
       function updateProgressBar() {
@@ -2113,20 +1065,7 @@
           document.getElementById('progress-bar').style.width = `${percentage}%`;
       }
       
-      function submitExam() {
-          // 检查是否全部作答，否则提示并滚动定位到未答题目
-          for (let i = 0; i < shuffledQuestions.length; i++) {
-              const q = shuffledQuestions[i];
-              if (!userAnswers[q.id] || userAnswers[q.id] === '') {
-                  const questionElem = document.getElementById(`question-${q.id}`);
-                  if (questionElem) {
-                      questionElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  }
-                  alert('请完成所有题目再提交答案！');
-                  return;
-              }
-          }
-          
+      function calculateResults() {
           clearInterval(timerInterval);
           const totalElapsed = Math.floor((Date.now() - startTime) / 1000);
           const minutes = Math.floor(totalElapsed / 60);
@@ -2147,12 +1086,39 @@
           });
           
           const accuracy = ((correct / shuffledQuestions.length) * 100).toFixed(1);
+          
+          // 更新结果统计
           document.getElementById('score').textContent = correct;
           document.getElementById('total').textContent = shuffledQuestions.length;
           document.getElementById('accuracy').textContent = `${accuracy}%`;
           document.getElementById('final-time').textContent = "总作答用时：" + formattedTotalTime;
           
+          // 更新结果统计卡片
+          document.getElementById('summary-score').textContent = correct;
+          document.getElementById('summary-total').textContent = shuffledQuestions.length;
+          document.getElementById('summary-accuracy').textContent = `${accuracy}%`;
+          document.getElementById('summary-time').textContent = formattedTotalTime;
+          
           displayResults('all');
+      }
+      
+      function submitExam() {
+          // 检查是否全部作答，否则提示并滚动定位到未答题目
+          for (let i = 0; i < shuffledQuestions.length; i++) {
+              const q = shuffledQuestions[i];
+              if (!userAnswers[q.id] || userAnswers[q.id] === '') {
+                  const questionElem = document.getElementById(`question-${q.id}`);
+                  if (questionElem) {
+                      document.querySelectorAll('.question').forEach(q => q.classList.remove('current-question'));
+                      questionElem.classList.add('current-question');
+                      questionElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }
+                  alert('请完成所有题目再提交答案！');
+                  return;
+              }
+          }
+          
+          calculateResults();
           
           // 隐藏考试区域、显示结果区域
           document.getElementById('exam-form').style.display = 'none';
@@ -2164,29 +1130,35 @@
       function displayResults(filter) {
           const resultDetails = document.getElementById('result-details');
           resultDetails.innerHTML = '';
-          Object.values(results).forEach(result => {
+          Object.values(results).forEach((result, index) => {
               if (filter === 'incorrect' && result.isCorrect) return;
               const resultDiv = document.createElement('div');
-              resultDiv.className = `question ${result.isCorrect ? 'correct' : 'incorrect'}`;
+              resultDiv.className = `question fade-in ${result.isCorrect ? 'correct' : 'incorrect'}`;
               resultDiv.innerHTML = `
                   <div class="question-title">
+                      <span class="question-number">${index + 1}. </span>
                       ${result.question.question}
-                      <span class="status">${result.isCorrect ? '✓ 正确' : '✗ 错误'}</span>
+                      <span class="status ${result.isCorrect ? 'correct' : 'incorrect'}">
+                          ${result.isCorrect ? '<i class="fas fa-check"></i> 正确' : '<i class="fas fa-times"></i> 错误'}
+                      </span>
                   </div>
                   <div class="options">
                       ${result.question.options.map(option => {
                           const letter = option.charAt(0);
                           let className = '';
+                          let icon = '';
+                          
                           if (letter === result.question.answer) {
                               className = 'correct';
-                          } else if (letter === result.userAnswer) {
+                              icon = '<i class="fas fa-check-circle"></i>';
+                          } else if (letter === result.userAnswer && letter !== result.question.answer) {
                               className = 'incorrect';
+                              icon = '<i class="fas fa-times-circle"></i>';
                           }
+                          
                           return `
                               <div class="option ${className}">
-                                  ${option}
-                                  ${letter === result.question.answer ? ' ✓' : ''}
-                                  ${letter === result.userAnswer && letter !== result.question.answer ? ' ✗' : ''}
+                                  ${option} ${icon}
                               </div>
                           `;
                       }).join('')}
@@ -2196,11 +1168,19 @@
           });
       }
       
-      // 监听答案选项变化
+      // 监听考试模式下的答案选项变化
       document.addEventListener('change', function(e) {
-          if (e.target.type === 'radio' && e.target.name.startsWith('question-')) {
+          if (currentMode === 'exam' && e.target.type === 'radio' && e.target.name.startsWith('question-')) {
               const questionId = parseInt(e.target.name.replace('question-', ''));
               userAnswers[questionId] = e.target.value;
+              
+              // 更新选项UI
+              const questionDiv = e.target.closest('.question');
+              questionDiv.querySelectorAll('.option').forEach(opt => {
+                  opt.classList.remove('selected');
+              });
+              e.target.closest('.option').classList.add('selected');
+              
               updateProgressBar();
           }
       });
@@ -2208,16 +1188,16 @@
       // 提交答案按钮事件
       document.getElementById('submit-btn').addEventListener('click', submitExam);
       
-      // “重新测试”按钮：保持原题数重新考试
+      // "重新测试"按钮：保持原题数重新考试
       document.getElementById('restart-btn').addEventListener('click', function() {
           clearInterval(timerInterval);
           document.getElementById('exam-form').style.display = 'block';
-          document.getElementById('submit-btn').style.display = 'block';
+          document.getElementById('submit-btn').style.display = currentMode === 'exam' ? 'block' : 'none';
           document.getElementById('results').style.display = 'none';
           initExam(shuffledQuestions.length);
       });
       
-      // “重新选择题目数”按钮：完全重置状态后，直接重新开始测试（不保留上次考试结果）
+      // "重新选择题目数"按钮：完全重置状态后，回到模式选择界面
       document.getElementById('reselect-btn').addEventListener('click', function() {
           clearInterval(timerInterval);
           timerInterval = null;
@@ -2228,25 +1208,14 @@
           usedQuestionIndices = [];
           document.getElementById('exam-form').innerHTML = '';
           document.getElementById('progress-bar').style.width = '0';
-          document.getElementById('timer').textContent = "已用时: 00:00";
+          document.getElementById('timer').innerHTML = '<i class="fas fa-clock"></i> 已用时: 00:00';
           document.getElementById('final-time').textContent = "";
           
-          // 直接隐藏考试区域和结果区域，再显示题目数量选择界面
+          // 直接隐藏考试区域和结果区域，再显示模式选择界面
           examContent.classList.add('hidden');
-          questionCountSelection.classList.remove('hidden');
+          modeSelection.classList.remove('hidden');
           questionCountInput.value = '';
           countErrorMessage.style.display = 'none';
-      });
-      
-      // 当用户输入有效题数时可自动触发开始测试（如果需要）
-      questionCountInput.addEventListener('change', function() {
-          const count = parseInt(this.value);
-          if (!isNaN(count) && count >= 1 && count <= originalQuestions.length) {
-              questionCountSubmit.click();
-          } else {
-              countErrorMessage.style.display = 'block';
-              this.value = '';
-          }
       });
       
       document.querySelectorAll('.filter-btn').forEach(btn => {
