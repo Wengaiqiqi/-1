@@ -578,7 +578,7 @@
   <script>
       // 原始题库数据保持不变
       let originalQuestions = [
-               {
+              {
       id: 16,
       question: "( ) 可以基于设备全生命周期的运行数据，提前预测设备关键部件的变化趋势、产品寿命和潜在风险，提前预测设备零部件的损坏时间，主动提前进行维护服务。",
       options: ["A. 设备资产全生命周期管理", "B. 设备状态监测", "C. 设备故障诊断", "D. 预测性维护"],
@@ -2338,7 +2338,6 @@
       options: ["A. 正确", "B. 错误", "", ""],
       answer: "A"
     }
-
       ];
       
       // 全局变量
@@ -2428,7 +2427,8 @@
           // 确保隐藏考试结果区域，并显示考试区域（考试区域可能保留上次结果）
           document.getElementById('results').style.display = 'none';
           document.getElementById('exam-form').style.display = 'block';
-          document.getElementById('submit-btn').style.display = currentMode === 'exam' ? 'block' : 'none';
+          // 无论什么模式都显示提交按钮
+          document.getElementById('submit-btn').style.display = 'block';
           
           questionCountSelection.classList.add('hidden');
           examContent.classList.remove('hidden');
@@ -2484,7 +2484,6 @@
           shuffledQuestions.forEach((q, index) => {
               const questionDiv = document.createElement('div');
               questionDiv.className = 'question fade-in';
-              if (index === 0) questionDiv.classList.add('current-question');
               questionDiv.id = `question-${q.id}`;
               
               let optionsHtml = '';
@@ -2557,32 +2556,6 @@
           }
           
           updateProgressBar();
-          
-          // 移除事件监听，防止重复点击
-          questionDiv.querySelectorAll('.option').forEach(opt => {
-              opt.removeEventListener('click', handlePracticeModeSelection);
-          });
-          
-          // 滚动到下一题（如果有）
-          const currentIndex = Array.from(document.querySelectorAll('.question')).indexOf(questionDiv);
-          if (currentIndex < shuffledQuestions.length - 1) {
-              const nextQuestion = document.querySelectorAll('.question')[currentIndex + 1];
-              setTimeout(() => {
-                  document.querySelectorAll('.question').forEach(q => q.classList.remove('current-question'));
-                  nextQuestion.classList.add('current-question');
-                  nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }, 800);
-          } else {
-              // 如果是最后一题，显示完成消息
-              setTimeout(() => {
-                  alert('恭喜！您已完成所有题目。');
-                  
-                  // 计算结果并显示
-                  calculateResults();
-                  document.getElementById('exam-form').style.display = 'none';
-                  document.getElementById('results').style.display = 'block';
-              }, 800);
-          }
       }
       
       // 更新时间显示（格式：mm:ss）
@@ -2641,7 +2614,7 @@
       }
       
       function submitExam() {
-          // 检查是否全部作答，否则提示并滚动定位到未答题目
+          // 检查是否全部作答，否则滚动定位到未答题目，不再显示提醒弹窗
           for (let i = 0; i < shuffledQuestions.length; i++) {
               const q = shuffledQuestions[i];
               if (!userAnswers[q.id] || userAnswers[q.id] === '') {
@@ -2651,18 +2624,17 @@
                       questionElem.classList.add('current-question');
                       questionElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
                   }
-                  alert('请完成所有题目再提交答案！');
                   return;
               }
           }
           
           calculateResults();
           
-          // 隐藏考试区域、显示结果区域
+          // 隐藏考试区域、显示结果区域并自动滚动到页面顶部
           document.getElementById('exam-form').style.display = 'none';
           document.getElementById('submit-btn').style.display = 'none';
           document.getElementById('results').style.display = 'block';
-          window.scrollTo(0, 0);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
       }
       
       function displayResults(filter) {
@@ -2726,13 +2698,24 @@
       // 提交答案按钮事件
       document.getElementById('submit-btn').addEventListener('click', submitExam);
       
-      // "重新测试"按钮：保持原题数重新考试
+      // "重新测试"按钮：保持原题数重新考试，重新打乱顺序，并自动滚动到第一题
       document.getElementById('restart-btn').addEventListener('click', function() {
           clearInterval(timerInterval);
           document.getElementById('exam-form').style.display = 'block';
-          document.getElementById('submit-btn').style.display = currentMode === 'exam' ? 'block' : 'none';
+          document.getElementById('submit-btn').style.display = 'block'; // 无论什么模式都显示提交按钮
           document.getElementById('results').style.display = 'none';
+          
+          // 重新初始化考试，打乱题目顺序
           initExam(shuffledQuestions.length);
+          
+          // 在initExam完成后，滚动到第一题位置
+          setTimeout(() => {
+              // 如果有题目，获取第一个题目并滚动到它的位置
+              const firstQuestion = document.querySelector('.question');
+              if (firstQuestion) {
+                  firstQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+          }, 100); // 短暂延迟确保DOM已更新
       });
       
       // "重新选择题目数"按钮：完全重置状态后，回到模式选择界面
