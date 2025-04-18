@@ -2763,20 +2763,86 @@
           
           clearInterval(timerInterval);
           document.getElementById('exam-form').style.display = 'block';
-          document.getElementById('submit-btn').style.display = 'block'; // 无论什么模式都显示提交按钮
+          document.getElementById('submit-btn').style.display = 'block';
           document.getElementById('results').style.display = 'none';
           
-          // 初始化考试，使用错题集
-          shuffledQuestions = incorrectQuestions;
-          initExam(shuffledQuestions.length);
+          // 直接使用错题集，不再调用洗牌算法
+          userAnswers = {};
+          results = {};
+          shuffledQuestions = [...incorrectQuestions]; // 使用错题集的副本
           
-          // 在initExam完成后，滚动到第一题位置
-          setTimeout(() => {
-              const firstQuestion = document.querySelector('.question');
-              if (firstQuestion) {
-                  firstQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-          }, 100);
+          // 更新模式显示
+          if (currentMode === 'practice') {
+              currentModeDisplay.innerHTML = '<i class="fas fa-book"></i> 练习模式 - 错题重测';
+              currentModeDisplay.style.color = '#e74c3c';
+          } else {
+              currentModeDisplay.innerHTML = '<i class="fas fa-clipboard-check"></i> 考试模式 - 错题重测';
+              currentModeDisplay.style.color = '#e74c3c';
+          }
+          
+          // 开始计时
+          startTime = Date.now();
+          timerInterval = setInterval(updateElapsedTime, 1000);
+          
+          // 清空旧的考试表单和进度条
+          document.getElementById('exam-form').innerHTML = '';
+          document.getElementById('progress-bar').style.width = '0';
+          document.getElementById('timer').innerHTML = '<i class="fas fa-clock"></i> 已用时: 00:00';
+          
+          // 生成错题题目
+          const examForm = document.getElementById('exam-form');
+          shuffledQuestions.forEach((q, index) => {
+              const questionDiv = document.createElement('div');
+              questionDiv.className = 'question fade-in';
+              questionDiv.id = `question-${q.id}`;
+              
+              let optionsHtml = '';
+              q.options.forEach(option => {
+                  const optionLetter = option.charAt(0);
+                  optionsHtml += `
+                      <div class="option" data-option="${optionLetter}">
+                          <label>
+                              <input type="radio" name="question-${q.id}" value="${optionLetter}">
+                              ${option}
+                          </label>
+                      </div>
+                  `;
+              });
+              
+              questionDiv.innerHTML = `
+                  <div class="question-title">
+                      <span class="question-number">${index + 1}. </span>
+                      ${q.question}
+                  </div>
+                  <div class="options">
+                      ${optionsHtml}
+                  </div>
+                  <div class="answer-feedback" id="feedback-${q.id}"></div>
+              `;
+              examForm.appendChild(questionDiv);
+          });
+          
+          // 如果是练习模式，添加选项点击事件监听
+          if (currentMode === 'practice') {
+              document.querySelectorAll('.option').forEach(option => {
+                  option.addEventListener('click', handlePracticeModeSelection);
+              });
+          }
+          
+          // 显示错题重测的提示信息
+          const noteDiv = document.createElement('div');
+          noteDiv.style.textAlign = 'center';
+          noteDiv.style.padding = '10px';
+          noteDiv.style.marginBottom = '20px';
+          noteDiv.style.backgroundColor = 'rgba(231, 76, 60, 0.1)';
+          noteDiv.style.borderRadius = '5px';
+          noteDiv.style.fontWeight = 'bold';
+          noteDiv.style.color = '#e74c3c';
+          noteDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> 当前正在进行错题重测，共 ${shuffledQuestions.length} 道题`;
+          examForm.insertBefore(noteDiv, examForm.firstChild);
+          
+          // 自动滚动到第一题
+          window.scrollTo({ top: 0, behavior: 'smooth' });
       });
       
       document.querySelectorAll('.filter-btn').forEach(btn => {
