@@ -570,6 +570,7 @@
               <div style="text-align: center; margin-top: 30px;">
                   <button id="restart-btn" class="btn btn-secondary"><i class="fas fa-redo"></i> 重新测试</button>
                   <button id="reselect-btn" class="btn"><i class="fas fa-cog"></i> 重新选择题目数</button>
+                  <button id="retry-incorrect-btn" class="btn btn-danger"><i class="fas fa-times-circle"></i> 错题重新测试</button>
               </div>
           </div>
       </div>
@@ -2586,6 +2587,7 @@
               (seconds < 10 ? "0" + seconds : seconds);
           
           let correct = 0;
+          let incorrectQuestions = []; // 收集错题
           shuffledQuestions.forEach(q => {
               const isCorrect = (userAnswers[q.id] === q.answer);
               results[q.id] = {
@@ -2593,8 +2595,20 @@
                   userAnswer: userAnswers[q.id] || '',
                   isCorrect: isCorrect
               };
-              if (isCorrect) correct++;
+              
+              if (isCorrect) {
+                  correct++;
+              } else {
+                  incorrectQuestions.push(q); // 添加到错题集
+              }
           });
+          
+          // 保存错题集到sessionStorage
+          if (incorrectQuestions.length > 0) {
+              sessionStorage.setItem('incorrectQuestions', JSON.stringify(incorrectQuestions));
+          } else {
+              sessionStorage.removeItem('incorrectQuestions');
+          }
           
           const accuracy = ((correct / shuffledQuestions.length) * 100).toFixed(1);
           
@@ -2737,6 +2751,32 @@
           modeSelection.classList.remove('hidden');
           questionCountInput.value = '';
           countErrorMessage.style.display = 'none';
+      });
+      
+      // "错题重新测试"按钮：从错题集重新生成考试
+      document.getElementById('retry-incorrect-btn').addEventListener('click', function() {
+          const incorrectQuestions = JSON.parse(sessionStorage.getItem('incorrectQuestions') || '[]');
+          if (incorrectQuestions.length === 0) {
+              alert('没有错题可供重新测试！');
+              return;
+          }
+          
+          clearInterval(timerInterval);
+          document.getElementById('exam-form').style.display = 'block';
+          document.getElementById('submit-btn').style.display = 'block'; // 无论什么模式都显示提交按钮
+          document.getElementById('results').style.display = 'none';
+          
+          // 初始化考试，使用错题集
+          shuffledQuestions = incorrectQuestions;
+          initExam(shuffledQuestions.length);
+          
+          // 在initExam完成后，滚动到第一题位置
+          setTimeout(() => {
+              const firstQuestion = document.querySelector('.question');
+              if (firstQuestion) {
+                  firstQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+          }, 100);
       });
       
       document.querySelectorAll('.filter-btn').forEach(btn => {
